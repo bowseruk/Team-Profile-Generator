@@ -64,11 +64,23 @@ Follow the installation steps above. Then run "node index.js" in a terminal on t
 
 This project has the following features:
 
-- Command Line Interface
+- Node.js command line interface
+
+- Modules
 
 ## Tests
 
-There are currently no tests for this project.
+The project has the following tests:
+
+- Jest tests run on a pull request or update to main.
+
+- There is a set of tests for Employee.mjs
+
+- There is a set of tests for Engineer.mjs
+
+- There is a set of tests for Intern.mjs
+
+- There is a set of tests for Manager.mjs
 
 ## Credits
 
