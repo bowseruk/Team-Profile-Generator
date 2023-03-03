@@ -1,8 +1,8 @@
-// creates the team
-const generateTeam = team => {
-
-    // creates the manager html
-    const generateManager = manager => {
+export default class TeamHTML {
+    constructor(team) {
+        this.team = team;
+    }
+    managerHTML(manager){
         return `
     <div class="card employee-card">
         <div class="card-header">
@@ -17,13 +17,11 @@ const generateTeam = team => {
             </ul>
         </div>
     </div>
-        `;
-    };
-
-    // creates the html for engineers
-    const generateEngineer = engineer => {
+        `
+    }
+    engineerHTML(engineer){
         return `
-        <div class="card employee-card">
+<div class="card employee-card">
     <div class="card-header">
         <h2 class="card-title">${engineer.getName()}</h2>
         <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>${engineer.getRole()}</h3>
@@ -37,12 +35,10 @@ const generateTeam = team => {
     </div>
 </div>
         `;
-    };
-
-    // creates the html for interns
-    const generateIntern = intern => {
+    }
+    internHTML(intern){
         return `
-        <div class="card employee-card">
+<div class="card employee-card">
     <div class="card-header">
         <h2 class="card-title">${intern.getName()}</h2>
         <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
@@ -56,34 +52,32 @@ const generateTeam = team => {
     </div>
 </div>
         `;
-    };
+    }
 
-    const html = [];
-
-    html.push(team
-        .filter(employee => employee.getRole() === "Manager")
-        .map(manager => generateManager(manager))
-    );
-    html.push(team
-        .filter(employee => employee.getRole() === "Engineer")
-        .map(engineer => generateEngineer(engineer))
-        .join("")
-    );
-    html.push(team
-        .filter(employee => employee.getRole() === "Intern")
-        .map(intern => generateIntern(intern))
-        .join("")
-    );
-
-    return html.join("");
-
-}
-
-// exports function to generate entire page
-export default (team) => {
-
-    return `
-    <!DOCTYPE html>
+    get cardsHTML() {
+        const html = [];
+        html.push(this.team
+            .filter(employee => employee.getRole() === "Manager")
+            .map(manager => this.managerHTML(manager))
+        );
+        html.push(this.team
+            .filter(employee => employee.getRole() === "Engineer")
+            .map(engineer => this.engineerHTML(engineer))
+            .join("")
+        );
+        html.push(this.team
+            .filter(employee => employee.getRole() === "Intern")
+            .map(intern => this.internHTML(intern))
+            .join("")
+        );
+    
+        this._cardsHTML = html.join("");
+        return this._cardsHTML;
+    }
+    get html() {
+        console.log("html")
+        return `
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -108,11 +102,12 @@ export default (team) => {
     <div class="container">
         <div class="row">
             <div class="team-area col-12 d-flex justify-content-center">
-                ${generateTeam(team)}
+                ${this.cardsHTML}
             </div>
         </div>
     </div>
 </body>
 </html>
     `;
-};
+    }
+}

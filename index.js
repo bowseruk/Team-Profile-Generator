@@ -1,19 +1,15 @@
-// const Manager = require("./lib/Manager");
+// import custom modules
 import Manager from "./modules/Manager.mjs";
-// const Engineer = require("./lib/Engineer");
 import Engineer from "./modules/Engineer.mjs"
-// const Intern = require("./lib/Intern");
 import Intern from "./modules/Intern.mjs";
+import TeamHTML from "./modules/TeamHTML.mjs";
+// import libraries
 import inquirer from "inquirer";
-import path from "path";
-// const path = require("path");
 import fs from "fs";
-// const fs = require("fs");
-import renderHTML from "./modules/page-template.mjs"
+import util from 'util';
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+const writeFileAsync = util.promisify(fs.writeFile);
+// team array
 const team = []
 
 // Get Manager Function
@@ -161,14 +157,24 @@ function selectionMenu() {
         }
     });
 }
+// function to write README file
+async function writeToFile(fileName, data) {
+    try {
+        await writeFileAsync(fileName, data);
+    } catch (err) {
+        console.log(err);
+    }
+}
 // Make HTML
-function makeHTML() {
-    page = renderHTML(team);
-    console.log(page);
+async function makeHTML() {
+    // Create page
+    let page = new TeamHTML(team).html;
+    // write to file
+    await writeToFile("output/team.html", page);
 }
 // initilize function
 function main() {
     managerInput()
 }
-
+// Start logic
 main()
