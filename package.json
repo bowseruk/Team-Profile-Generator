@@ -1,0 +1,24 @@
+{
+    "name": "team-profile-generator",
+    "version": "1.0.0",
+    "description": "A team profile generator",
+    "type": "module",
+    "jest": {
+      "transform": {}
+    },
+    "exports": "./index.js",
+    "scripts": {
+      "start": "node index",
+      "watch": "nodemon index",
+      "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    },
+    "author": "Adam Bolsover",
+    "license": "MIT",
+    "dependencies": {
+      "inquirer": "^9.1.4"
+    },
+    "devDependencies": {
+      "jest": "^29.4.3"
+    }
+  }
+  
